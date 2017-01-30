@@ -1,5 +1,5 @@
 {
-  "name": "node-vdocipher",
+  "name": "vdocipher",
   "version": "1.2.0",
   "description": "Nodejs module for vdocipher API",
   "main": "index.js",

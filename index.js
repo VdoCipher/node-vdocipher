@@ -17,8 +17,7 @@ class VdoCipher {
 	 * obtain the OTP
 	 * @param {string} videoId alphanumeric id of your vdocipher video
 	 * @param {Object} options extra options such as forcedBitrate and watermark
-	 * @param {function} callback A function which will be called with
-	 * response
+	 * @param {VdoCipher~getOtpCallback} callback which will be called with otp
 	 */
 	getOtp(videoId, options, callback) {
 		let apiUrl = 'https://api.vdocipher.com/v2/';
@@ -33,11 +32,11 @@ class VdoCipher {
 			form: options,
 		}, function(error, response, body) {
 			if (error) {
-				callback(response.statusCode);
+				callback(error);
 				return false;
 			}
 			if (response.statusCode !== 200) {
-				callback(response.statusCode);
+				callback(new Error(body));
 				return false;
 			}
 			callback(null, JSON.parse(body));
@@ -45,9 +44,26 @@ class VdoCipher {
 	}
 
 	/**
+	 * This callback is used to retrieve the otp
+	 * @callback VdoCipher~getOtpCallback
+	 * @param {Error} error Should be null for success, check `error.message` for
+	 * detail
+	 * @param {Object} response The otp json container
+	 * @param {string} response.otp the 64 character otp
+	 */
+
+	/**
 	 * get signature for auth video playback
-	 * @param {string} playbackInfo base64 encoding of a json string with info
+	 * @param {Object} playbackInfo base64 encoding of a json string with info
 	 * about the time expiry and media info and other DRM data
+	 * @param {string} playbackInfo.video 32-char video id
+	 * @param {integer} playbackInfo.expiry the unix timestamp time in seconds
+	 * @param {string} playbackInfo.ipgeorules ip/geo ruleset as a json string
+	 * as defined in
+	 * https://www.vdocipher.com/blog/2017/01/set-ip-geo-restriction-videos-via-api-vdocipher-drm/
+	 * @param {string} playbackInfo.user user information as a structured json
+	 * @param {string} playbackInfo.extra extra information as a json string
+	 * @param {string} playbackInfo.watermark watermark preset indentifier
 	 * @return {string} signature created using the secret key
 	 */
 	getSignaure(playbackInfo) {
