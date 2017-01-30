@@ -1,13 +1,14 @@
 {
   "name": "node-vdocipher",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Nodejs module for vdocipher API",
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack --progress -p",
     "build:watch": "NODE_ENV=production webpack --progress --watch",
     "test": " mocha --compilers js:babel-core/register -t 10000 -b",
-    "test:watch": " mocha -t 10000 -b --watch"
+    "test:watch": " mocha -t 10000 -b --watch",
+	"jsdoc" : "jsdoc2md index.js > README.md"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "chai": "^3.5.0",
     "eslint": "^3.12.1",
     "eslint-config-google": "^0.7.1",
+    "jsdoc-to-markdown": "^2.0.1",
     "mocha": "^3.2.0",
     "webpack": "^1.14.0"
   },

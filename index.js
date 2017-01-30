@@ -3,6 +3,7 @@ import crypto from 'crypto';
 
 /**
  * VdoCipher API
+ * Nodejs module for vdocipher API to obtain token for authenticated playback
  */
 class VdoCipher {
 	/**
