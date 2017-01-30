@@ -47,7 +47,13 @@ get signature for auth video playback
 
 | Param | Type | Description |
 | --- | --- | --- |
-| playbackInfo | <code>string</code> | base64 encoding of a json string with info about the time expiry and media info and other DRM data |
+| playbackInfo | <code>Object</code> | base64 encoding of a json string with info about the time expiry and media info and other DRM data |
+| playbackInfo.video | <code>string</code> | 32-char video id |
+| playbackInfo.expiry | <code>integer</code> | the unix timestamp time in seconds |
+| playbackInfo.ipgeorules | <code>string</code> | ip/geo ruleset as a json string as defined in https://www.vdocipher.com/blog/2017/01/set-ip-geo-restriction-videos-via-api-vdocipher-drm/ |
+| playbackInfo.user | <code>string</code> | user information as a structured json |
+| playbackInfo.extra | <code>string</code> | extra information as a json string |
+| playbackInfo.watermark | <code>string</code> | watermark preset indentifier |
 
 <a name="VdoCipher..getOtpCallback"></a>
 
@@ -58,7 +64,7 @@ This callback is used to retrieve the otp
 
 | Param | Type | Description |
 | --- | --- | --- |
-| Should | <code>Error</code> | be null of not error |
-| response | <code>Object</code> | The otp container |
+| error | <code>Error</code> | Should be null for success, check `error.message` for detail |
+| response | <code>Object</code> | The otp json container |
 | response.otp | <code>string</code> | the 64 character otp |
 
