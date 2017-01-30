@@ -8,8 +8,11 @@ Nodejs module for vdocipher API to obtain token for authenticated playback
 
 * [VdoCipher](#VdoCipher)
     * [new VdoCipher(key)](#new_VdoCipher_new)
-    * [.getOtp(videoId, options, callback)](#VdoCipher+getOtp)
-    * [.getSignaure(playbackInfo)](#VdoCipher+getSignaure) ⇒ <code>string</code>
+    * _instance_
+        * [.getOtp(videoId, options, callback)](#VdoCipher+getOtp)
+        * [.getSignaure(playbackInfo)](#VdoCipher+getSignaure) ⇒ <code>string</code>
+    * _inner_
+        * [~getOtpCallback](#VdoCipher..getOtpCallback) : <code>function</code>
 
 <a name="new_VdoCipher_new"></a>
 
@@ -32,7 +35,7 @@ obtain the OTP
 | --- | --- | --- |
 | videoId | <code>string</code> | alphanumeric id of your vdocipher video |
 | options | <code>Object</code> | extra options such as forcedBitrate and watermark |
-| callback | <code>function</code> | A function which will be called with response |
+| callback | <code>[getOtpCallback](#VdoCipher..getOtpCallback)</code> | which will be called with otp |
 
 <a name="VdoCipher+getSignaure"></a>
 
@@ -45,4 +48,17 @@ get signature for auth video playback
 | Param | Type | Description |
 | --- | --- | --- |
 | playbackInfo | <code>string</code> | base64 encoding of a json string with info about the time expiry and media info and other DRM data |
+
+<a name="VdoCipher..getOtpCallback"></a>
+
+### VdoCipher~getOtpCallback : <code>function</code>
+This callback is used to retrieve the otp
+
+**Kind**: inner typedef of <code>[VdoCipher](#VdoCipher)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| Should | <code>Error</code> | be null of not error |
+| response | <code>Object</code> | The otp container |
+| response.otp | <code>string</code> | the 64 character otp |
 
