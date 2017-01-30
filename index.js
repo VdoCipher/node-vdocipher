@@ -15,20 +15,21 @@ class VdoCipher {
 	/**
 	 * obtain the OTP
 	 * @param {string} videoId alphanumeric id of your vdocipher video
+	 * @param {Object} options extra options such as forcedBitrate and watermark
 	 * @param {function} callback A function which will be called with
 	 * response
 	 */
-	getOtp(videoId, callback) {
+	getOtp(videoId, options, callback) {
 		let apiUrl = 'https://api.vdocipher.com/v2/';
+		options = options || {};
+		options.clientSecretKey = this.secret_key,
 
 		request.post({
 			url: apiUrl + 'otp',
 			qs: {
 				video: videoId,
 			},
-			form: {
-				clientSecretKey: this.secret_key,
-			},
+			form: options,
 		}, function(error, response, body) {
 			if (error) {
 				callback(response.statusCode);
